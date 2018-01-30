@@ -14,8 +14,11 @@ admin.initializeApp({
 var storage = admin.storage();
 var bucket = storage.bucket();
 
-function uploadTempFile(name, callback){
-  bucket.upload(__dirname + '/../../temp/' + name, function(err, file){
+//database
+var db = admin.database();
+
+function uploadTempFile(path, callback){
+  bucket.upload(path, function(err, file){
     callback(err);
   });
 }

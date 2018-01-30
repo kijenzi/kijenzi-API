@@ -21,13 +21,13 @@ function setupRoutes(app){
     }
 
     //First write file to temp
-    tempStorage.writeFile(file, function(err){
+    tempStorage.writeFile(file, function(err, filename){
       if(err){
         res.status(500).send('Error: file uploaded could not save');
         throw err;
       }else{
         //Upload same file from temp to firebase
-        firebase.uploadTempFile(file.name, function(err){
+        firebase.uploadTempFile(tempStorage.getFilePath(filename), function(err){
           if(err){
             res.status(500).send('Error: file uploaded could not save to firebase');
             throw err;
