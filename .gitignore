@@ -80,4 +80,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+#Firebase
 firebase-service.json
+
+#temp files
+temp/*

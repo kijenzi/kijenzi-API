@@ -1,6 +1,7 @@
 const uuid = require('uuid/v1');
 const tempStorage = require('../util/tempStorage');
-const firebase = require('../firebase/firebase');
+const firebaseStorage = require('../firebase/firebaseStorage');
+const firebaseDatabase = require('../firebase/firebaseDatabase');
 
 function setupRoutes(app){
   app.post('/uploadStaticFile', function(req, res){
@@ -19,15 +20,16 @@ function setupRoutes(app){
       res.status(400).send('Error: no gcode file found');
       return;
     }
-
     //First write file to temp
-    tempStorage.writeFile(file, function(err, filename){
+    tempStorage.writeFile(file, function(err, uuidFilename){
       if(err){
         res.status(500).send('Error: file uploaded could not save');
         throw err;
       }else{
+        //Create database entry for file
+        firebaseDatabase.addNewStaticFile(file.name, uuidFilename);
         //Upload same file from temp to firebase
-        firebase.uploadTempFile(tempStorage.getFilePath(filename), function(err){
+        firebaseStorage.uploadTempFile(tempStorage.getFilePath(uuidFilename), function(err){
           if(err){
             res.status(500).send('Error: file uploaded could not save to firebase');
             throw err;

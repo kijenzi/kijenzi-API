@@ -15,5 +15,6 @@ function getFilePath(filename){
 }
 
 module.exports = {
-  writeFile
+  writeFile,
+  getFilePath
 };
