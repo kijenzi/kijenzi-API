@@ -1,4 +1,4 @@
-const uuid = require('uuid/v1');fileDest
+const uuid = require('uuid/v1');
 const tempStorage = require('../util/tempStorage');
 const firebase = require('../firebase/firebase');
 const path = require('path');
